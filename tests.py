@@ -3,8 +3,7 @@
 from generators import *
 from criteria import *
 
-def test(generator, alpha=0.1):
-	seq = generator()
+def test(seq, alpha=0.1):
 	
 	test1 = equiprobability_signs_criterion(seq, alpha=alpha)
 	test2 = independency_signs_criterion(seq, alpha=alpha)
@@ -15,9 +14,39 @@ def test(generator, alpha=0.1):
 	
 	
 if __name__=='__main__':
-	generators = [standard] #will be added soon
 	
-	for generator in generators:
-		test(generator, 0.1)
-		test(generator, 0.05)
-		test(generator, 0.01)
+	sequences = []
+	
+	standard_seq = standard(100000)
+	sequences.append(standard_seq)
+	print('Standard sequence created\n')
+	
+	lehmerlow_seq = lehmer_low(100000)
+	sequences.append(lehmerlow_seq)
+	print('LehmerLow sequence created\n')
+	
+	lehmerhigh_seq = lehmer_low(100000)
+	sequences.append(lehmerhigh_seq)
+	print('LehmerHigh sequence created\n')
+	
+	l_20_seq = L20(100000)
+	sequences.append(l_20_seq)
+	print('L20 sequence created\n')
+	
+	l_89_seq = L89(100000)
+	sequences.append(l_89_seq)
+	print('L89 sequence created\n')
+	
+	wolfram_seq = wolfram(100000)
+	sequences.append(wolfram_seq)
+	print('Wolfram sequence created\n')
+	
+	start = time.time()
+	
+	for seq in sequences:
+		test(seq, 0.1)
+		#test(seq, 0.05)
+		#test(seq, 0.01)
+		
+	finish  = time.time() - start
+	print('Entire job took {} seconds'.format(finish))

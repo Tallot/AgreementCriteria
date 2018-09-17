@@ -5,7 +5,7 @@ import math
 quantiles = {0.99:2.326, 0.95:1.645, 0.9:1.282}
 l=255
 
-def equiprobability_signs_criterion(seq:'bytes', alpha=0.1):
+def equiprobability_signs_criterion(seq:'bytes in decimal form', alpha=0.1):
 	# Our hypothesis H0 is that all bytes in sequence have equal probability
 	
 	chi_squared = 0
@@ -17,11 +17,11 @@ def equiprobability_signs_criterion(seq:'bytes', alpha=0.1):
 	chi_squared_one_minus_alpha = math.sqrt(2*l)*quantiles[1-alpha]+l
 		
 	if chi_squared <= chi_squared_one_minus_alpha:
-		return True
+		return (True, chi_squared)
 	else:
-		return False
+		return (False, chi_squared)
 		
-def independency_signs_criterion(seq:'bytes', alpha=0.1):
+def independency_signs_criterion(seq:'bytes in decimal form', alpha=0.1):
 	n = len(seq)//2
 	
 	# Our hypothesis H0 is that all bytes in sequence are independent of previous ones
@@ -51,11 +51,11 @@ def independency_signs_criterion(seq:'bytes', alpha=0.1):
 	chi_squared_one_minus_alpha = math.sqrt(2*l**2)*quantiles[1-alpha]+l**2
 	
 	if chi_squared <= chi_squared_one_minus_alpha:
-		return True
+		return (True, chi_squared)
 	else:
-		return False
+		return (False, chi_squared)
 		
-def uniformity_signs_criterion(seq:'bytes', r=100, alpha=0.1):
+def uniformity_signs_criterion(seq:'bytes in decimal form', r=100, alpha=0.1):
 	m = len(seq)//r
 	n = m*r
 	# Our hypothesis H0 is that all bytes in are uniformly distributed
@@ -73,8 +73,8 @@ def uniformity_signs_criterion(seq:'bytes', r=100, alpha=0.1):
 	chi_squared_one_minus_alpha = math.sqrt(2*l*(r-1))*quantiles[1-alpha]+l*(r-1)
 
 	if chi_squared <= chi_squared_one_minus_alpha:
-		return True
+		return (True, chi_squared)
 	else:
-		return False
+		return (False, chi_squared)
 			
 			
