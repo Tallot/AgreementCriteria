@@ -58,7 +58,7 @@ def L20(n):
 		init = shift_register(init, x_t)
 		buffer.append(x_t)
 		if i%8 == 0:
-			x_byte = int(''.join([srt(x) for x in buffer]), 2) # byte in decimal form
+			x_byte = int(''.join([str(x) for x in buffer]), 2) # byte in decimal form
 			seq.append(x_byte)
 			del buffer[:] # clear buffer
 
@@ -75,7 +75,7 @@ def L89(n):
 		init = shift_register(init, x_t)
 		buffer.append(x_t)
 		if i%8 == 0:
-			x_byte = int(''.join([srt(x) for x in buffer]), 2) # byte in decimal form
+			x_byte = int(''.join([str(x) for x in buffer]), 2) # byte in decimal form
 			seq.append(x_byte)
 			del buffer[:]
 
@@ -93,7 +93,7 @@ def wolfram(n):
 		x_i = '{:032b}'.format(r0)[-1]
 		buffer.append(x_i)
 		if i%8 == 0:
-			x_byte = int(''.join([srt(x) for x in buffer]), 2) # byte in decimal form
+			x_byte = int(''.join([str(x) for x in buffer]), 2) # byte in decimal form
 			seq.append(x_byte)
 			del buffer[:]
 
