@@ -5,7 +5,9 @@ import random
 # 1. Built-in generator
 def standard(n):
 	'''
-	Returns a Python integer with k random bits. This method is supplied with the MersenneTwister generator and some other generators may also provide it as an optional part of the API. It produces 53-bit precision floats and has a period of 2**19937-1.
+	Returns a Python integer with k random bits.
+	This method is supplied with the MersenneTwister generator and some other generators may also provide it as an optional part of the API.
+	It produces 53-bit precision floats and has a period of 2**19937-1.
 	'''
 	seq = [random.getrandbits(8) for _ in range(n)]
 	return seq
@@ -81,9 +83,9 @@ def L89(n):
 
 	return seq
 
-def wolfram(n):
-
-	r0 = int(time.time())
+def wolfram(n, r0=None):
+	if r0 is None:
+		r0 = int(time.time())
 	seq = []
 
 	buffer = []

@@ -5,53 +5,57 @@ from criteria import *
 
 def test(seq, alpha=0.1):
 
-	test1 = equiprobability_signs_criterion(seq, alpha=alpha)
-	test2 = independency_signs_criterion(seq, alpha=alpha)
-	test3 = uniformity_signs_criterion(seq, alpha=alpha)
+	print('Current alpha in tests: {}'.format(alpha))
 
-	print('For alpha {}:'.format(alpha))
-	print(test1,'\n', test2,'\n', test3,'\n')
+	print('Equiprobability test in progress ...')
+	test1 = equiprobability_signs_criterion(seq, alpha=alpha)
+	print('\t Test passing: {}\t Chi value: {}'.format(test1[0], test1[1]))
+
+	print('Independency test in progress ...')
+	test2 = independency_signs_criterion(seq, alpha=alpha)
+	print('\t Test passing: {}\t Chi value: {}'.format(test2[0], test2[1]))
+
+	print('Uniformity test in progress ...')
+	test3 = uniformity_signs_criterion(seq, alpha=alpha)
+	print('\t Test passing: {}\t Chi value: {}'.format(test3[0], test3[1]))
 
 
 if __name__=='__main__':
 
-	sequences = []
+	print('Generating sequences .... \n')
 
-	standard_seq = standard(100000)
-	sequences.append(standard_seq)
-	print('Standard sequence created\n')
+	sequences = {}
+	n=10**5
 
+	standard_seq = standard(n)
+	sequences['Built-in'] = standard_seq
 
-	lehmerlow_seq = lehmer_low(100000)
-	sequences.append(lehmerlow_seq)
-	print('LehmerLow sequence created\n')
+	lehmerlow_seq = lehmer_low(n)
+	sequences['LehmerLow'] = lehmerlow_seq
 
+	lehmerhigh_seq = lehmer_high(n)
+	sequences['LehmerHigh'] = lehmerhigh_seq
 
-	lehmerhigh_seq = lehmer_low(100000)
-	sequences.append(lehmerhigh_seq)
-	print('LehmerHigh sequence created\n')
+	l_20_seq = L20(n)
+	sequences['L20'] = l_20_seq
 
-	l_20_seq = L20(100000)
-	sequences.append(l_20_seq)
-	print('L20 sequence created\n')
+	l_89_seq = L89(n)
+	sequences['L89'] = l_89_seq
 
-	l_89_seq = L89(100000)
-	sequences.append(l_89_seq)
-	print('L89 sequence created\n')
+	wolfram_seq = wolfram(n)
+	sequences['Wolfram'] = wolfram_seq
 
-	wolfram_seq = wolfram(100000)
-	sequences.append(wolfram_seq)
-	print('Wolfram sequence created\n')
+	print('All generators have created their sequences\n')
+	print('Launching tests .........\n\n')
 
 	global_start = time.time()
 
-	for seq in sequences:
+	for (gen, seq) in sequences.items():
+		print('Testing {} generator!\n'.format(gen))
 		start = time.time()
 		test(seq, 0.1)
 		finish  = time.time() - start
-		print('Test took {} seconds'.format(finish))
-		#test(seq, 0.05)
-		#test(seq, 0.01)
+		print('Test took {} seconds\n\n'.format(finish))
 
 	global_finish  = time.time() - global_start
 	print('Entire job took {} seconds'.format(global_finish))

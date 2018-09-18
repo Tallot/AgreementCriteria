@@ -44,7 +44,8 @@ def independency_signs_criterion(seq:'bytes in decimal form', alpha=0.1):
 
 			alpha_j = alphas_j[j]
 
-			chi_squared += nu_i_j**2/(nu_i*alpha_j)
+			if nu_i > 0 and alpha_j > 0:
+				chi_squared += nu_i_j**2/(nu_i*alpha_j)
 
 	chi_squared = n*(chi_squared-1)
 
@@ -55,10 +56,12 @@ def independency_signs_criterion(seq:'bytes in decimal form', alpha=0.1):
 	else:
 		return (False, chi_squared)
 
-def uniformity_signs_criterion(seq:'bytes in decimal form', r=100, alpha=0.1):
+def uniformity_signs_criterion(seq:'bytes in decimal form', r=0, alpha=0.1):
+	if r == 0:
+		r = 1 + int(math.log(len(seq))/math.log(2))
 	m = len(seq)//r
 	n = m*r
-	# Our hypothesis H0 is that all bytes in are uniformly distributed
+	# Our hypothesis H0 is that all bytes in sequence are uniformly distributed
 	chi_squared = 0
 
 	for i in range(256):
@@ -66,7 +69,8 @@ def uniformity_signs_criterion(seq:'bytes in decimal form', r=100, alpha=0.1):
 		for j in range(r):
 			nu_i_j = seq[j*r:j*r+r].count(i)
 
-			chi_squared += nu_i_j**2/(nu_i*m)
+			if nu_i > 0:
+				chi_squared += nu_i_j**2/(nu_i*m)
 
 	chi_squared = n*(chi_squared-1)
 
