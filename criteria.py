@@ -17,9 +17,9 @@ def equiprobability_signs_criterion(seq:'bytes in decimal form', alpha=0.1):
 	chi_squared_one_minus_alpha = math.sqrt(2*l)*quantiles[1-alpha]+l
 
 	if chi_squared <= chi_squared_one_minus_alpha:
-		return (True, chi_squared)
+		return (True, chi_squared, chi_squared_one_minus_alpha)
 	else:
-		return (False, chi_squared)
+		return (False, chi_squared, chi_squared_one_minus_alpha)
 
 def independency_signs_criterion(seq:'bytes in decimal form', alpha=0.1):
 	n = len(seq)//2
@@ -52,22 +52,23 @@ def independency_signs_criterion(seq:'bytes in decimal form', alpha=0.1):
 	chi_squared_one_minus_alpha = math.sqrt(2*l**2)*quantiles[1-alpha]+l**2
 
 	if chi_squared <= chi_squared_one_minus_alpha:
-		return (True, chi_squared)
+		return (True, chi_squared, chi_squared_one_minus_alpha)
 	else:
-		return (False, chi_squared)
+		return (False, chi_squared, chi_squared_one_minus_alpha)
 
 def uniformity_signs_criterion(seq:'bytes in decimal form', r=0, alpha=0.1):
 	if r == 0:
 		r = 1 + int(math.log(len(seq))/math.log(2))
 	m = len(seq)//r
 	n = m*r
+	seq = seq[:n]
 	# Our hypothesis H0 is that all bytes in sequence are uniformly distributed
 	chi_squared = 0
 
 	for i in range(256):
 		nu_i = seq.count(i)
 		for j in range(r):
-			nu_i_j = seq[j*r:j*r+r].count(i)
+			nu_i_j = seq[j*m:j*m+m].count(i)
 
 			if nu_i > 0:
 				chi_squared += nu_i_j**2/(nu_i*m)
@@ -77,6 +78,6 @@ def uniformity_signs_criterion(seq:'bytes in decimal form', r=0, alpha=0.1):
 	chi_squared_one_minus_alpha = math.sqrt(2*l*(r-1))*quantiles[1-alpha]+l*(r-1)
 
 	if chi_squared <= chi_squared_one_minus_alpha:
-		return (True, chi_squared)
+		return (True, chi_squared, chi_squared_one_minus_alpha)
 	else:
-		return (False, chi_squared)
+		return (False, chi_squared, chi_squared_one_minus_alpha)

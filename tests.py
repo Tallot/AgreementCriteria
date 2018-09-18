@@ -9,15 +9,15 @@ def test(seq, alpha=0.1):
 
 	print('Equiprobability test in progress ...')
 	test1 = equiprobability_signs_criterion(seq, alpha=alpha)
-	print('\t Test passing: {}\t Chi value: {}'.format(test1[0], test1[1]))
+	print('\t Test passing: {}\t Chi value: {}\t Chi theoretical: {}'.format(test1[0], test1[1], test1[2]))
 
 	print('Independency test in progress ...')
 	test2 = independency_signs_criterion(seq, alpha=alpha)
-	print('\t Test passing: {}\t Chi value: {}'.format(test2[0], test2[1]))
+	print('\t Test passing: {}\t Chi value: {}\t Chi theoretical: {}'.format(test2[0], test2[1], test2[2]))
 
 	print('Uniformity test in progress ...')
 	test3 = uniformity_signs_criterion(seq, alpha=alpha)
-	print('\t Test passing: {}\t Chi value: {}'.format(test3[0], test3[1]))
+	print('\t Test passing: {}\t Chi value: {}\t Chi theoretical: {}'.format(test3[0], test3[1], test3[2]))
 
 
 if __name__=='__main__':

@@ -1,0 +1,81 @@
+Generating sequences .... 
+
+All generators have created their sequences
+
+Launching tests .........
+
+
+Testing L20 generator!
+
+Current alpha in tests: 0.1
+Equiprobability test in progress ...
+	 Test passing: True	 Chi value: 224.96128000000007
+Independency test in progress ...
+	 Test passing: True	 Chi value: 64071.547992413005
+Uniformity test in progress ...
+	 Test passing: True	 Chi value: 3305.176883504524
+Test took 20.96970295906067 seconds
+
+
+Testing LehmerHigh generator!
+
+Current alpha in tests: 0.1
+Equiprobability test in progress ...
+	 Test passing: True	 Chi value: 93.7728
+Independency test in progress ...
+	 Test passing: True	 Chi value: 64888.563963323984
+Uniformity test in progress ...
+	 Test passing: True	 Chi value: 4036.2048181730493
+Test took 164.93302297592163 seconds
+
+
+Testing Built-in generator!
+
+Current alpha in tests: 0.1
+Equiprobability test in progress ...
+	 Test passing: True	 Chi value: 281.5232000000002
+Independency test in progress ...
+	 Test passing: True	 Chi value: 65257.3447199847
+Uniformity test in progress ...
+	 Test passing: True	 Chi value: 4002.984016119224
+Test took 173.39680886268616 seconds
+
+
+Testing Wolfram generator!
+
+Current alpha in tests: 0.1
+Equiprobability test in progress ...
+	 Test passing: False	 Chi value: 3187500.0
+Independency test in progress ...
+	 Test passing: True	 Chi value: 0.0
+Uniformity test in progress ...
+	 Test passing: True	 Chi value: -4.1593395394556865e-12
+Test took 17.85368251800537 seconds
+
+
+Testing LehmerLow generator!
+
+Current alpha in tests: 0.1
+Equiprobability test in progress ...
+	 Test passing: True	 Chi value: 0.15359999999999996
+Independency test in progress ...
+	 Test passing: False	 Chi value: 6350000.0
+Uniformity test in progress ...
+	 Test passing: True	 Chi value: 4.1846153906482035
+Test took 152.51341891288757 seconds
+
+
+Testing L89 generator!
+
+Current alpha in tests: 0.1
+Equiprobability test in progress ...
+	 Test passing: True	 Chi value: 254.16576000000012
+Independency test in progress ...
+	 Test passing: True	 Chi value: 64749.46429955221
+Uniformity test in progress ...
+	 Test passing: False	 Chi value: 3419.934907556182
+Test took 21.954874992370605 seconds
+
+
+Entire job took 551.6217007637024 seconds
+
