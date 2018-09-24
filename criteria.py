@@ -1,6 +1,9 @@
 # Pearson's chi-squared criteria
 
 import math
+from collections import Counter
+import numpy as np
+
 
 quantiles = {0.99:2.326, 0.95:1.645, 0.9:1.282}
 l=255
