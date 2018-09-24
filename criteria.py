@@ -13,8 +13,9 @@ def equiprobability_signs_criterion(seq:'bytes in decimal form', alpha=0.1):
 
 	chi_squared = 0
 	n = len(seq)/256
+	counts = Counter(x for x in seq)# super efficient
 	for byte in range(256):
-		nu = seq.count(byte)
+		nu = counts[byte]
 		chi_squared += ((nu-n)**2 / n)
 
 	chi_squared_one_minus_alpha = math.sqrt(2*l)*quantiles[1-alpha]+l
@@ -33,22 +34,23 @@ def independency_signs_criterion(seq:'bytes in decimal form', alpha=0.1):
 
 	chi_squared = 0
 
-	alphas_j = []
-	for j in range(256):
-		alpha_j = sum([couples.count((l,j)) for l in range(256)])
-		alphas_j.append(alpha_j)
+	alphas_j = Counter(x[1] for x in couples)
+	nus_i = Counter(x[0] for x in couples)
+	
+	couples = np.asarray(couples, dtype='i4,i4')
+	unique, counts = np.unique(couples, return_counts=True)# super efficient
 
 	for i in range(256):
-		nus_i = [couples.count((i,k)) for k in range(256)]
-		nu_i = sum(nus_i)
+		nu_i = nus_i[i]
 
 		for j in range(256):
-			nu_i_j = nus_i[j]
-
 			alpha_j = alphas_j[j]
+			
+			aim = np.asarray([(i,j)], dtype='i4,i4')
+			nu_i_j = counts[np.where(unique == aim)]
 
-			if nu_i > 0 and alpha_j > 0:
-				chi_squared += nu_i_j**2/(nu_i*alpha_j)
+			if nu_i > 0 and alpha_j > 0 and len(nu_i_j) > 0:
+				chi_squared += nu_i_j[0]**2/(nu_i*alpha_j)
 
 	chi_squared = n*(chi_squared-1)
 
@@ -67,9 +69,11 @@ def uniformity_signs_criterion(seq:'bytes in decimal form', r=0, alpha=0.1):
 	seq = seq[:n]
 	# Our hypothesis H0 is that all bytes in sequence are uniformly distributed
 	chi_squared = 0
+	
+	counts = Counter(x for x in seq)
 
 	for i in range(256):
-		nu_i = seq.count(i)
+		nu_i = counts[i]
 		for j in range(r):
 			nu_i_j = seq[j*m:j*m+m].count(i)
 
